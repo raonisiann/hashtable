@@ -20,6 +20,7 @@ struct hash_table {
 typedef struct hash_table hashtable;
 
 unsigned int ht_key_calc(char *data);
-unsigned int ht_set(hashtable *ht, char *data);
+int ht_set(hashtable *ht, char *data);
 struct ht_entry *ht_get(hashtable *ht, char *data);
 hashtable *ht_init(unsigned int size);
+void ht_dump(hashtable *ht);
