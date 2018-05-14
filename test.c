@@ -6,7 +6,7 @@ void show_menu();
 void ht_dump(hashtable *ht) {
 	struct ht_bucket *bucket;
 	struct ht_entry *entry;
-	for (int i = 0; i < ht->size; i++) {
+	for (unsigned int i = 0; i < ht->size; i++) {
 		bucket = &ht->table[i];
 		if (bucket->head == NULL) {
 			printf("INDEX -> %u : NULL\n", i);
@@ -43,10 +43,20 @@ int main(int argc, char **argv) {
 	int exit = 0;
 	int option = 98;
 	int nelem = 0;
+	unsigned int req_size;
 
-	ht = ht_init(11);
+	printf("To start, set the table size: ");
+	scanf("%d", &req_size);
+
+	ht = ht_init(req_size);
 
 	do {
+		fflush(stdin);
+		show_menu();
+		// get user option
+		printf("Option: ");
+		scanf("%d", &option);
+
 		switch (option) {
 		case 0:
 			exit = 1;
@@ -89,11 +99,6 @@ int main(int argc, char **argv) {
 			exit = 1;
 			break;
 		}
-		fflush(stdin);
-		show_menu();
-		// get user option
-		printf("Option: ");
-		scanf("%d", &option);
 	} while (!exit);
 
 	ht_destroy(ht);
